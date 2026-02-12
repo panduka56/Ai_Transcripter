@@ -1,0 +1,380 @@
+:root {
+  --bg: #f6f2ea;
+  --ink: #1f1d1a;
+  --muted: #686058;
+  --line: rgba(31, 29, 26, 0.16);
+  --panel: rgba(255, 255, 255, 0.76);
+  --focus: #155f9b;
+  --brand: #0f547e;
+  --brand-soft: #dff0ff;
+  --ok: #0f7a4c;
+  --warn: #a63f13;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Manrope", sans-serif;
+  color: var(--ink);
+  background: radial-gradient(circle at 12% 18%, #f9dfb8 0%, transparent 34%),
+    radial-gradient(circle at 88% 80%, #d8e8ff 0%, transparent 38%), var(--bg);
+}
+
+.mesh {
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(74px);
+  opacity: 0.55;
+}
+
+.mesh-a {
+  width: 340px;
+  height: 340px;
+  top: -80px;
+  right: -90px;
+  background: #fdbe78;
+}
+
+.mesh-b {
+  width: 390px;
+  height: 390px;
+  bottom: -140px;
+  left: -120px;
+  background: #8cb6df;
+}
+
+.shell {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 1.25rem 0.95rem 1.8rem;
+  display: grid;
+  gap: 0.95rem;
+}
+
+.panel {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  border-radius: 22px;
+  padding: 1.1rem;
+  box-shadow: 0 10px 28px rgba(32, 24, 17, 0.08);
+  animation: rise-in 420ms cubic-bezier(0.2, 0.75, 0.3, 1) both;
+}
+
+.panel-head {
+  margin-bottom: 1rem;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.77rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+}
+
+h1 {
+  margin-top: 0.25rem;
+  font-size: clamp(1.55rem, 3.6vw, 2.4rem);
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: clamp(1.4rem, 2.1vw, 1.8rem);
+}
+
+.lead {
+  margin: 0.64rem 0 0;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+#transcribe-form {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.grid-2 {
+  display: grid;
+  gap: 0.72rem;
+  grid-template-columns: 1fr;
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.92rem;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.72rem 0.8rem;
+  background: #fff;
+  color: var(--ink);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #8e857d;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.key-row {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 1fr auto;
+}
+
+button {
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 0.72rem 0.95rem;
+  cursor: pointer;
+  transition: transform 140ms ease, opacity 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.56;
+  cursor: not-allowed;
+}
+
+.primary {
+  color: #fff;
+  background: linear-gradient(125deg, #0f547e 0%, #1f72a7 100%);
+  font-weight: 700;
+}
+
+.ghost {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: var(--line);
+  color: #2c2824;
+}
+
+.small {
+  padding: 0.52rem 0.74rem;
+}
+
+.source-switch {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.source-switch label {
+  position: relative;
+}
+
+.source-switch input {
+  position: absolute;
+  opacity: 0;
+}
+
+.source-switch span {
+  display: block;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.76);
+  padding: 0.58rem 0.7rem;
+  font-size: 0.9rem;
+}
+
+.source-switch input:checked + span {
+  border-color: #5f8eb3;
+  background: var(--brand-soft);
+  color: #0e4f79;
+  font-weight: 600;
+}
+
+.source-block {
+  border: 1px dashed rgba(31, 29, 26, 0.22);
+  border-radius: 14px;
+  padding: 0.72rem;
+  background: rgba(255, 255, 255, 0.48);
+}
+
+.dropzone {
+  width: 100%;
+  min-height: 90px;
+  display: grid;
+  place-items: center;
+  gap: 0.2rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px dashed rgba(31, 29, 26, 0.26);
+  color: #2a2622;
+}
+
+.dropzone span {
+  font-size: 0.9rem;
+  color: #726860;
+}
+
+.dropzone.dragover {
+  border-color: #1f73a8;
+  background: #e8f3fe;
+}
+
+.source-meta {
+  margin: 0.56rem 0 0;
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.hidden {
+  display: none;
+}
+
+.controls {
+  display: grid;
+  gap: 0.58rem;
+  grid-template-columns: 1fr;
+}
+
+.status {
+  margin: 0.75rem 0 0;
+  min-height: 1.2rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.status.ok {
+  color: var(--ok);
+}
+
+.status.error {
+  color: var(--warn);
+}
+
+.status.busy::before {
+  content: "";
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-right: 0.45rem;
+  border: 2px solid rgba(15, 84, 126, 0.2);
+  border-top-color: #0f547e;
+  border-radius: 999px;
+  transform: translateY(1px);
+  animation: spin 700ms linear infinite;
+}
+
+.output-panel {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 0.64rem;
+}
+
+.output-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.meta-line {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+  justify-content: flex-end;
+}
+
+.stats {
+  display: flex;
+  gap: 0.72rem;
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+#transcript {
+  min-height: 330px;
+  resize: vertical;
+  line-height: 1.56;
+  font-size: 0.95rem;
+  border-radius: 14px;
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(1px) rotate(360deg);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 820px) {
+  .grid-2,
+  .controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1040px) {
+  .shell {
+    grid-template-columns: minmax(330px, 430px) minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.75rem 1rem 2rem;
+  }
+
+  .input-panel {
+    position: sticky;
+    top: 1rem;
+    height: fit-content;
+  }
+
+  #transcript {
+    min-height: 600px;
+  }
+}

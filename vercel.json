@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "other",
+  "outputDirectory": "public",
+  "functions": {
+    "api/transcribe.js": {
+      "maxDuration": 60
+    }
+  }
+}
