@@ -3,123 +3,146 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Transcripts</title>
+    <title>Ai_Transcripter</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="mesh mesh-a"></div>
-    <div class="mesh mesh-b"></div>
+    <div class="backdrop glow-a"></div>
+    <div class="backdrop glow-b"></div>
 
     <main class="shell">
-      <section class="panel input-panel">
-        <div class="panel-head">
-          <p class="eyebrow">Transcript Studio</p>
-          <h1>Turn voice or video into a clean transcript</h1>
-          <p class="lead">Use your own key, pick a source, generate, then copy or download Markdown.</p>
-        </div>
-
-        <form id="transcribe-form" novalidate>
-          <div class="grid-2">
-            <label class="field">
-              <span>Provider</span>
-              <select id="provider" name="provider" autocomplete="off">
-                <option value="elevenlabs">ElevenLabs</option>
-                <option value="openai">OpenAI</option>
-              </select>
-            </label>
-
-            <label class="field">
-              <span>Model (optional)</span>
-              <input id="model" name="model" placeholder="scribe_v1" />
-            </label>
+      <section class="workspace">
+        <aside class="visual-column">
+          <div class="visual-header">
+            <p class="logo-mark">Ai_Transcripter</p>
+            <a class="back-pill" href="#" aria-label="Back to website">Back to website →</a>
           </div>
 
-          <label class="field">
-            <span id="api-key-label">ElevenLabs API Key</span>
-            <div class="key-row">
-              <input
-                id="apiKey"
-                name="apiKey"
-                type="password"
-                autocomplete="off"
-                required
-                placeholder="Paste your API key"
-              />
-              <button id="toggleKeyBtn" class="ghost small" type="button">Show</button>
+          <figure class="visual-stage">
+            <img id="showcaseImage" src="/assets/hero-1.jpg" alt="Creative landscape visual" />
+            <div class="visual-overlay"></div>
+            <figcaption class="visual-copy">
+              <p id="showcaseKicker" class="visual-kicker">Precision Capture</p>
+              <h1 id="showcaseTitle">Transcribe interviews, podcasts, and calls in one place.</h1>
+              <p id="showcaseText">Use your own OpenAI or ElevenLabs key with your files or YouTube links.</p>
+            </figcaption>
+            <div class="visual-dots" id="showcaseDots" role="tablist" aria-label="Showcase slides">
+              <button class="visual-dot is-active" type="button" data-slide="0" aria-label="Slide 1"></button>
+              <button class="visual-dot" type="button" data-slide="1" aria-label="Slide 2"></button>
+              <button class="visual-dot" type="button" data-slide="2" aria-label="Slide 3"></button>
             </div>
-          </label>
+          </figure>
+        </aside>
 
-          <fieldset class="source-switch" role="radiogroup" aria-label="Source type">
-            <label>
-              <input type="radio" name="sourceMode" value="file" checked />
-              <span>File Upload</span>
-            </label>
-            <label>
-              <input type="radio" name="sourceMode" value="youtube" />
-              <span>YouTube URL</span>
-            </label>
-          </fieldset>
-
-          <div id="fileSourceBlock" class="source-block">
-            <input id="media" name="media" type="file" accept="audio/*,video/*" hidden />
-            <button id="filePickerBtn" type="button" class="dropzone">
-              <strong>Drop audio/video here</strong>
-              <span>or click to choose a file</span>
-            </button>
-            <p id="fileMeta" class="source-meta">No file selected.</p>
+        <section class="control-column">
+          <div class="panel-head">
+            <h2>Create Transcript</h2>
+            <p>Bring your own API key. Nothing is stored permanently.</p>
           </div>
 
-          <div id="youtubeSourceBlock" class="source-block hidden">
+          <form id="transcribe-form" novalidate>
+            <div class="grid-2">
+              <label class="field">
+                <span>Provider</span>
+                <select id="provider" name="provider" autocomplete="off">
+                  <option value="elevenlabs">ElevenLabs</option>
+                  <option value="openai">OpenAI</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Model (optional)</span>
+                <input id="model" name="model" placeholder="scribe_v1" />
+              </label>
+            </div>
+
             <label class="field">
-              <span>YouTube URL</span>
-              <input
-                id="youtubeUrl"
-                name="youtubeUrl"
-                type="url"
-                placeholder="https://www.youtube.com/watch?v=..."
-              />
+              <span id="api-key-label">ElevenLabs API Key</span>
+              <div class="key-row">
+                <input
+                  id="apiKey"
+                  name="apiKey"
+                  type="password"
+                  autocomplete="off"
+                  required
+                  placeholder="Paste your API key"
+                />
+                <button id="toggleKeyBtn" class="ghost small" type="button">Show</button>
+              </div>
             </label>
-          </div>
 
-          <div class="controls">
-            <button id="submitBtn" type="submit" class="primary">Create Transcript</button>
-            <button id="abortBtn" type="button" class="ghost" disabled>Cancel</button>
-          </div>
-        </form>
+            <fieldset class="source-switch" role="radiogroup" aria-label="Source type">
+              <label>
+                <input type="radio" name="sourceMode" value="file" checked />
+                <span>File Upload</span>
+              </label>
+              <label>
+                <input type="radio" name="sourceMode" value="youtube" />
+                <span>YouTube URL</span>
+              </label>
+            </fieldset>
 
-        <p id="status" class="status" role="status" aria-live="polite"></p>
-      </section>
+            <div id="fileSourceBlock" class="source-block">
+              <input id="media" name="media" type="file" accept="audio/*,video/*" hidden />
+              <button id="filePickerBtn" type="button" class="dropzone">
+                <strong>Drop audio/video here</strong>
+                <span>or click to choose from your device</span>
+              </button>
+              <p id="fileMeta" class="source-meta">No file selected.</p>
+            </div>
 
-      <section class="panel output-panel">
-        <div class="output-top">
-          <div>
-            <h2>Transcript</h2>
-            <p id="metaLine" class="meta-line">Waiting for input.</p>
-          </div>
-          <div class="actions">
-            <button id="copyBtn" type="button" class="ghost small" disabled>Copy</button>
-            <button id="downloadBtn" type="button" class="ghost small" disabled>Download .md</button>
-            <button id="clearBtn" type="button" class="ghost small" disabled>Clear</button>
-          </div>
-        </div>
+            <div id="youtubeSourceBlock" class="source-block hidden">
+              <label class="field">
+                <span>YouTube URL</span>
+                <input
+                  id="youtubeUrl"
+                  name="youtubeUrl"
+                  type="url"
+                  placeholder="https://www.youtube.com/watch?v=..."
+                />
+              </label>
+            </div>
 
-        <div class="stats">
-          <span id="wordCount">0 words</span>
-          <span id="charCount">0 chars</span>
-        </div>
+            <div class="controls">
+              <button id="submitBtn" type="submit" class="primary">Create Transcript</button>
+              <button id="abortBtn" type="button" class="ghost" disabled>Cancel</button>
+            </div>
+          </form>
 
-        <textarea
-          id="transcript"
-          placeholder="Your transcript will appear here after processing."
-          spellcheck="false"
-          readonly
-        ></textarea>
+          <p id="status" class="status" role="status" aria-live="polite"></p>
+
+          <section class="transcript-panel">
+            <div class="output-top">
+              <div>
+                <h3>Transcript</h3>
+                <p id="metaLine" class="meta-line">Waiting for input.</p>
+              </div>
+              <div class="actions">
+                <button id="copyBtn" type="button" class="ghost small" disabled>Copy</button>
+                <button id="downloadBtn" type="button" class="ghost small" disabled>Download .md</button>
+                <button id="clearBtn" type="button" class="ghost small" disabled>Clear</button>
+              </div>
+            </div>
+
+            <div class="stats">
+              <span id="wordCount">0 words</span>
+              <span id="charCount">0 chars</span>
+            </div>
+
+            <textarea
+              id="transcript"
+              placeholder="Your transcript will appear here after processing."
+              spellcheck="false"
+              readonly
+            ></textarea>
+          </section>
+        </section>
       </section>
     </main>
 

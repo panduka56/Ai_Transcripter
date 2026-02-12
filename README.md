@@ -1,10 +1,11 @@
-# AI Transcripts
+# Ai_Transcripter
 
 Browser-based transcription app that supports:
 - Audio/video file upload
 - YouTube URL transcription
 - Provider selection (`ElevenLabs` or `OpenAI`)
 - One-click copy and Markdown download
+- Polished split-panel UI with local showcase images (`/public/assets`)
 
 ## Local development
 

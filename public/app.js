@@ -1,4 +1,5 @@
 const SETTINGS_KEY = "ai-transcripts.settings.v1";
+const SHOWCASE_INTERVAL_MS = 6500;
 
 const form = document.getElementById("transcribe-form");
 const providerInput = document.getElementById("provider");
@@ -23,9 +24,37 @@ const abortBtn = document.getElementById("abortBtn");
 const copyBtn = document.getElementById("copyBtn");
 const downloadBtn = document.getElementById("downloadBtn");
 const clearBtn = document.getElementById("clearBtn");
+const showcaseImage = document.getElementById("showcaseImage");
+const showcaseKicker = document.getElementById("showcaseKicker");
+const showcaseTitle = document.getElementById("showcaseTitle");
+const showcaseText = document.getElementById("showcaseText");
+const showcaseDots = Array.from(document.querySelectorAll(".visual-dot"));
 
 let inFlightController = null;
 let lastResult = null;
+let showcaseIndex = 0;
+let showcaseTimer = null;
+
+const showcaseSlides = [
+  {
+    image: "/assets/hero-1.jpg",
+    kicker: "Precision Capture",
+    title: "Transcribe interviews, podcasts, and calls in one place.",
+    description: "Use your own OpenAI or ElevenLabs key with your files or YouTube links."
+  },
+  {
+    image: "/assets/hero-2.jpg",
+    kicker: "Fast Workflow",
+    title: "Upload a clip, get text, copy instantly, or export markdown.",
+    description: "Built for creators, founders, and anyone documenting spoken content."
+  },
+  {
+    image: "/assets/hero-3.jpg",
+    kicker: "Private by Default",
+    title: "Your API key is used per request and not permanently stored.",
+    description: "Switch between providers and models without changing apps."
+  }
+];
 
 loadSettings();
 syncProviderState();
@@ -33,6 +62,7 @@ syncSourceMode();
 updateFileMeta();
 updateStats();
 updateOutputActions();
+initShowcase();
 
 providerInput.addEventListener("change", () => {
   syncProviderState();
@@ -88,6 +118,13 @@ abortBtn.addEventListener("click", abortCurrentRequest);
 copyBtn.addEventListener("click", copyTranscript);
 downloadBtn.addEventListener("click", downloadMarkdown);
 clearBtn.addEventListener("click", clearTranscript);
+
+showcaseDots.forEach((dot, index) => {
+  dot.addEventListener("click", () => {
+    setShowcaseSlide(index);
+    restartShowcaseTimer();
+  });
+});
 
 function loadSettings() {
   try {
@@ -375,4 +412,40 @@ async function parseResponse(response) {
   } catch {
     return {};
   }
+}
+
+function initShowcase() {
+  setShowcaseSlide(0);
+  showcaseTimer = window.setInterval(() => {
+    const nextIndex = (showcaseIndex + 1) % showcaseSlides.length;
+    setShowcaseSlide(nextIndex);
+  }, SHOWCASE_INTERVAL_MS);
+}
+
+function restartShowcaseTimer() {
+  if (showcaseTimer) {
+    window.clearInterval(showcaseTimer);
+  }
+  showcaseTimer = window.setInterval(() => {
+    const nextIndex = (showcaseIndex + 1) % showcaseSlides.length;
+    setShowcaseSlide(nextIndex);
+  }, SHOWCASE_INTERVAL_MS);
+}
+
+function setShowcaseSlide(index) {
+  const slide = showcaseSlides[index];
+  if (!slide) {
+    return;
+  }
+
+  showcaseIndex = index;
+  showcaseImage.src = slide.image;
+  showcaseKicker.textContent = slide.kicker;
+  showcaseTitle.textContent = slide.title;
+  showcaseText.textContent = slide.description;
+
+  showcaseDots.forEach((dot, dotIndex) => {
+    dot.classList.toggle("is-active", dotIndex === index);
+    dot.setAttribute("aria-current", dotIndex === index ? "true" : "false");
+  });
 }
