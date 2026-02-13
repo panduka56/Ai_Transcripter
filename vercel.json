@@ -1,9 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "outputDirectory": "public",
-  "functions": {
-    "api/transcribe.js": {
-      "maxDuration": 60
-    }
-  }
+  "framework": "node",
+  "outputDirectory": "public"
 }
