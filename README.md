@@ -7,6 +7,8 @@ Browser-based transcription app that supports:
 - One-click copy and Markdown download
 - Polished split-panel UI with local showcase images (`/public/assets`)
 
+![Ai_Transcripter UI](./public/assets/app-screenshot.png)
+
 ## Local development
 
 ```bash

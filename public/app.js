@@ -44,21 +44,21 @@ let showcaseTimer = null;
 const showcaseSlides = [
   {
     image: "/assets/hero-1.jpg",
-    kicker: "Studio Capture",
-    title: "Turn long-form audio into clean, production-ready transcript drafts.",
-    description: "Use your own request-scoped key with OpenAI or ElevenLabs and keep control over models."
+    kicker: "Delivery Ready",
+    title: "Turn raw media into polished text, then copy or export markdown.",
+    description: "Designed for shipping notes, content drafts, and knowledge base updates fast."
   },
   {
     image: "/assets/hero-2.jpg",
-    kicker: "Fast Delivery",
-    title: "Move from rough media to copyable text and markdown in one workspace.",
-    description: "Built for publishing teams, podcasts, research notes, and knowledge operations."
+    kicker: "Fast Publishing",
+    title: "Move from rough recordings to structured transcript drafts in minutes.",
+    description: "Built for podcast teams, researchers, founders, and media workflows."
   },
   {
     image: "/assets/hero-3.jpg",
     kicker: "Source Flexibility",
-    title: "Run uploads and YouTube links without switching tools or tabs.",
-    description: "One workflow for ingestion, transcription, and export-ready handoff."
+    title: "Run file uploads and YouTube links in a single production pipeline.",
+    description: "One workspace for ingestion, transcription, and clean markdown handoff."
   }
 ];
 

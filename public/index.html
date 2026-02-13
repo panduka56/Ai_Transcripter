@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Transcripter</title>
+    <title>Ai_Transcripter</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="ambient ambient-a"></div>
-    <div class="ambient ambient-b"></div>
+    <div class="ambient ambient-a" aria-hidden="true"></div>
+    <div class="ambient ambient-b" aria-hidden="true"></div>
     <div class="grid-overlay" aria-hidden="true"></div>
 
     <main class="app-shell">
@@ -22,12 +22,12 @@
         <div class="brand-block">
           <span class="brand-mark">AT</span>
           <div>
-            <p class="brand-name">AI Transcripter</p>
-            <p class="brand-subtitle">Media-to-text workspace for creators and teams</p>
+            <p class="brand-name">Ai_Transcripter</p>
+            <p class="brand-subtitle">Media-to-text studio for teams and creators</p>
           </div>
         </div>
         <div class="header-actions">
-          <p class="security-pill">Request-scoped keys. Nothing is stored server-side.</p>
+          <p class="security-pill">Request-scoped keys. No persistent API key storage.</p>
           <a class="ghost-link" href="https://github.com/panduka56/Ai_Transcripter" target="_blank" rel="noreferrer">
             Open GitHub
           </a>
@@ -36,25 +36,24 @@
 
       <section class="studio-grid">
         <aside class="context-panel reveal delay-1">
-          <div class="context-intro">
-            <p class="eyebrow">Session Intelligence</p>
-            <h1>Transcription engine built for real production workflows.</h1>
+          <div class="context-intro glass-panel">
+            <p class="eyebrow">Voice Intelligence Workspace</p>
+            <h1>From rough recordings to structured, copy-ready transcripts.</h1>
             <p>
-              Bring your own OpenAI or ElevenLabs key, run uploads or YouTube links, then ship polished text with one
-              click copy and markdown export.
+              Built for rapid publishing workflows. Upload audio or video, paste a YouTube URL, then export clean markdown in one pass.
             </p>
           </div>
 
           <div class="signal-grid">
-            <article class="signal-card">
+            <article class="signal-card glass-panel">
               <p>Provider</p>
               <strong id="providerBadge">ElevenLabs</strong>
             </article>
-            <article class="signal-card">
+            <article class="signal-card glass-panel">
               <p>Input Source</p>
               <strong id="sourceBadge">File Upload</strong>
             </article>
-            <article class="signal-card">
+            <article class="signal-card glass-panel">
               <p>Readiness</p>
               <strong id="readinessBadge">Awaiting API key</strong>
             </article>
@@ -62,13 +61,11 @@
 
           <figure class="showcase-card">
             <img id="showcaseImage" src="/assets/hero-1.jpg" alt="Creative studio visual" />
-            <img class="showcase-thumb thumb-a" src="/assets/hero-2.jpg" alt="" aria-hidden="true" />
-            <img class="showcase-thumb thumb-b" src="/assets/hero-3.jpg" alt="" aria-hidden="true" />
             <div class="showcase-scrim"></div>
             <figcaption class="showcase-copy">
-              <p id="showcaseKicker" class="showcase-kicker">Precision Capture</p>
-              <h2 id="showcaseTitle">Transcribe meetings, podcasts, and field recordings in one place.</h2>
-              <p id="showcaseText">Switch between OpenAI and ElevenLabs with your own key and model preferences.</p>
+              <p id="showcaseKicker" class="showcase-kicker">Delivery Ready</p>
+              <h2 id="showcaseTitle">Turn raw media into polished text, then copy or export markdown.</h2>
+              <p id="showcaseText">Designed for shipping notes, content drafts, and knowledge base updates fast.</p>
             </figcaption>
             <div class="visual-dots" id="showcaseDots" role="tablist" aria-label="Showcase slides">
               <button class="visual-dot is-active" type="button" data-slide="0" aria-label="Slide 1"></button>
@@ -77,35 +74,34 @@
             </div>
           </figure>
 
-          <section class="pipeline-card">
-            <div class="pipeline-head">
-              <h3>Pipeline</h3>
-              <p>Live completion states update as you configure the request.</p>
-            </div>
-            <ul class="pipeline-list">
-              <li>
-                <span id="stepKey" class="step-dot"></span>
-                <div>
-                  <h4>Authenticate</h4>
-                  <p>Add your provider API key.</p>
-                </div>
-              </li>
-              <li>
-                <span id="stepSource" class="step-dot"></span>
-                <div>
-                  <h4>Choose Source</h4>
-                  <p>Use a file upload or a YouTube URL.</p>
-                </div>
-              </li>
-              <li>
-                <span id="stepOutput" class="step-dot"></span>
-                <div>
-                  <h4>Generate + Export</h4>
-                  <p>Copy transcript text or download markdown.</p>
-                </div>
-              </li>
-            </ul>
-          </section>
+          <div class="notes-grid">
+            <section class="notes-card glass-panel">
+              <h3>Workflow</h3>
+              <ul class="pipeline-list">
+                <li>
+                  <span id="stepKey" class="step-dot"></span>
+                  <span>Choose provider and model.</span>
+                </li>
+                <li>
+                  <span id="stepSource" class="step-dot"></span>
+                  <span>Upload media or paste YouTube link.</span>
+                </li>
+                <li>
+                  <span id="stepOutput" class="step-dot"></span>
+                  <span>Copy or download markdown instantly.</span>
+                </li>
+              </ul>
+            </section>
+
+            <section class="notes-card glass-panel">
+              <h3>Session Notes</h3>
+              <ul class="bullet-list">
+                <li>Supports audio and video uploads.</li>
+                <li>Optimized for long-form spoken content.</li>
+                <li>Built for fast editing and publishing.</li>
+              </ul>
+            </section>
+          </div>
         </aside>
 
         <section class="workbench reveal delay-2">
