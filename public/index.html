@@ -3,34 +3,72 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ai_Transcripter</title>
+    <title>AI Transcripter</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="backdrop glow-a"></div>
-    <div class="backdrop glow-b"></div>
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
+    <div class="grid-overlay" aria-hidden="true"></div>
 
-    <main class="shell">
-      <section class="workspace">
-        <aside class="visual-column">
-          <div class="visual-header">
-            <p class="logo-mark">Ai_Transcripter</p>
-            <a class="back-pill" href="#" aria-label="Back to website">Back to website →</a>
+    <main class="app-shell">
+      <header class="app-header reveal">
+        <div class="brand-block">
+          <span class="brand-mark">AT</span>
+          <div>
+            <p class="brand-name">AI Transcripter</p>
+            <p class="brand-subtitle">Media-to-text workspace for creators and teams</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <p class="security-pill">Request-scoped keys. Nothing is stored server-side.</p>
+          <a class="ghost-link" href="https://github.com/panduka56/Ai_Transcripter" target="_blank" rel="noreferrer">
+            Open GitHub
+          </a>
+        </div>
+      </header>
+
+      <section class="studio-grid">
+        <aside class="context-panel reveal delay-1">
+          <div class="context-intro">
+            <p class="eyebrow">Session Intelligence</p>
+            <h1>Transcription engine built for real production workflows.</h1>
+            <p>
+              Bring your own OpenAI or ElevenLabs key, run uploads or YouTube links, then ship polished text with one
+              click copy and markdown export.
+            </p>
           </div>
 
-          <figure class="visual-stage">
-            <img id="showcaseImage" src="/assets/hero-1.jpg" alt="Creative landscape visual" />
-            <div class="visual-overlay"></div>
-            <figcaption class="visual-copy">
-              <p id="showcaseKicker" class="visual-kicker">Precision Capture</p>
-              <h1 id="showcaseTitle">Transcribe interviews, podcasts, and calls in one place.</h1>
-              <p id="showcaseText">Use your own OpenAI or ElevenLabs key with your files or YouTube links.</p>
+          <div class="signal-grid">
+            <article class="signal-card">
+              <p>Provider</p>
+              <strong id="providerBadge">ElevenLabs</strong>
+            </article>
+            <article class="signal-card">
+              <p>Input Source</p>
+              <strong id="sourceBadge">File Upload</strong>
+            </article>
+            <article class="signal-card">
+              <p>Readiness</p>
+              <strong id="readinessBadge">Awaiting API key</strong>
+            </article>
+          </div>
+
+          <figure class="showcase-card">
+            <img id="showcaseImage" src="/assets/hero-1.jpg" alt="Creative studio visual" />
+            <img class="showcase-thumb thumb-a" src="/assets/hero-2.jpg" alt="" aria-hidden="true" />
+            <img class="showcase-thumb thumb-b" src="/assets/hero-3.jpg" alt="" aria-hidden="true" />
+            <div class="showcase-scrim"></div>
+            <figcaption class="showcase-copy">
+              <p id="showcaseKicker" class="showcase-kicker">Precision Capture</p>
+              <h2 id="showcaseTitle">Transcribe meetings, podcasts, and field recordings in one place.</h2>
+              <p id="showcaseText">Switch between OpenAI and ElevenLabs with your own key and model preferences.</p>
             </figcaption>
             <div class="visual-dots" id="showcaseDots" role="tablist" aria-label="Showcase slides">
               <button class="visual-dot is-active" type="button" data-slide="0" aria-label="Slide 1"></button>
@@ -38,15 +76,45 @@
               <button class="visual-dot" type="button" data-slide="2" aria-label="Slide 3"></button>
             </div>
           </figure>
+
+          <section class="pipeline-card">
+            <div class="pipeline-head">
+              <h3>Pipeline</h3>
+              <p>Live completion states update as you configure the request.</p>
+            </div>
+            <ul class="pipeline-list">
+              <li>
+                <span id="stepKey" class="step-dot"></span>
+                <div>
+                  <h4>Authenticate</h4>
+                  <p>Add your provider API key.</p>
+                </div>
+              </li>
+              <li>
+                <span id="stepSource" class="step-dot"></span>
+                <div>
+                  <h4>Choose Source</h4>
+                  <p>Use a file upload or a YouTube URL.</p>
+                </div>
+              </li>
+              <li>
+                <span id="stepOutput" class="step-dot"></span>
+                <div>
+                  <h4>Generate + Export</h4>
+                  <p>Copy transcript text or download markdown.</p>
+                </div>
+              </li>
+            </ul>
+          </section>
         </aside>
 
-        <section class="control-column">
-          <div class="panel-head">
-            <h2>Create Transcript</h2>
-            <p>Bring your own API key. Nothing is stored permanently.</p>
+        <section class="workbench reveal delay-2">
+          <div class="workbench-head">
+            <h2>Transcript Workbench</h2>
+            <p>Use your own credentials. Processing happens only when you submit.</p>
           </div>
 
-          <form id="transcribe-form" novalidate>
+          <form id="transcribe-form" class="form-card" novalidate>
             <div class="grid-2">
               <label class="field">
                 <span>Provider</span>
@@ -91,7 +159,7 @@
             <div id="fileSourceBlock" class="source-block">
               <input id="media" name="media" type="file" accept="audio/*,video/*" hidden />
               <button id="filePickerBtn" type="button" class="dropzone">
-                <strong>Drop audio/video here</strong>
+                <strong>Drop audio or video here</strong>
                 <span>or click to choose from your device</span>
               </button>
               <p id="fileMeta" class="source-meta">No file selected.</p>
@@ -110,7 +178,7 @@
             </div>
 
             <div class="controls">
-              <button id="submitBtn" type="submit" class="primary">Create Transcript</button>
+              <button id="submitBtn" type="submit" class="primary">Generate Transcript</button>
               <button id="abortBtn" type="button" class="ghost" disabled>Cancel</button>
             </div>
           </form>
@@ -137,7 +205,7 @@
 
             <textarea
               id="transcript"
-              placeholder="Your transcript will appear here after processing."
+              placeholder="Transcript appears here after processing."
               spellcheck="false"
               readonly
             ></textarea>

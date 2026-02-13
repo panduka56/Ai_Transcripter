@@ -29,6 +29,12 @@ const showcaseKicker = document.getElementById("showcaseKicker");
 const showcaseTitle = document.getElementById("showcaseTitle");
 const showcaseText = document.getElementById("showcaseText");
 const showcaseDots = Array.from(document.querySelectorAll(".visual-dot"));
+const providerBadge = document.getElementById("providerBadge");
+const sourceBadge = document.getElementById("sourceBadge");
+const readinessBadge = document.getElementById("readinessBadge");
+const stepKey = document.getElementById("stepKey");
+const stepSource = document.getElementById("stepSource");
+const stepOutput = document.getElementById("stepOutput");
 
 let inFlightController = null;
 let lastResult = null;
@@ -38,21 +44,21 @@ let showcaseTimer = null;
 const showcaseSlides = [
   {
     image: "/assets/hero-1.jpg",
-    kicker: "Precision Capture",
-    title: "Transcribe interviews, podcasts, and calls in one place.",
-    description: "Use your own OpenAI or ElevenLabs key with your files or YouTube links."
+    kicker: "Studio Capture",
+    title: "Turn long-form audio into clean, production-ready transcript drafts.",
+    description: "Use your own request-scoped key with OpenAI or ElevenLabs and keep control over models."
   },
   {
     image: "/assets/hero-2.jpg",
-    kicker: "Fast Workflow",
-    title: "Upload a clip, get text, copy instantly, or export markdown.",
-    description: "Built for creators, founders, and anyone documenting spoken content."
+    kicker: "Fast Delivery",
+    title: "Move from rough media to copyable text and markdown in one workspace.",
+    description: "Built for publishing teams, podcasts, research notes, and knowledge operations."
   },
   {
     image: "/assets/hero-3.jpg",
-    kicker: "Private by Default",
-    title: "Your API key is used per request and not permanently stored.",
-    description: "Switch between providers and models without changing apps."
+    kicker: "Source Flexibility",
+    title: "Run uploads and YouTube links without switching tools or tabs.",
+    description: "One workflow for ingestion, transcription, and export-ready handoff."
   }
 ];
 
@@ -62,6 +68,7 @@ syncSourceMode();
 updateFileMeta();
 updateStats();
 updateOutputActions();
+updateSessionSignals();
 initShowcase();
 
 providerInput.addEventListener("change", () => {
@@ -70,6 +77,8 @@ providerInput.addEventListener("change", () => {
 });
 
 modelInput.addEventListener("change", persistSettings);
+apiKeyInput.addEventListener("input", updateSessionSignals);
+youtubeUrlInput.addEventListener("input", updateSessionSignals);
 sourceModeInputs.forEach((input) => input.addEventListener("change", onSourceModeChange));
 
 filePickerBtn.addEventListener("click", () => mediaInput.click());
@@ -165,6 +174,7 @@ function syncProviderState() {
   const isOpenAI = provider === "openai";
   apiKeyLabel.textContent = isOpenAI ? "OpenAI API Key" : "ElevenLabs API Key";
   modelInput.placeholder = isOpenAI ? "gpt-4o-mini-transcribe" : "scribe_v1";
+  updateSessionSignals();
 }
 
 function onSourceModeChange() {
@@ -176,6 +186,7 @@ function syncSourceMode() {
   const mode = getSourceMode();
   fileSourceBlock.classList.toggle("hidden", mode !== "file");
   youtubeSourceBlock.classList.toggle("hidden", mode !== "youtube");
+  updateSessionSignals();
 }
 
 function getSourceMode() {
@@ -195,10 +206,12 @@ function updateFileMeta() {
   const file = mediaInput.files?.[0];
   if (!file) {
     fileMeta.textContent = "No file selected.";
+    updateSessionSignals();
     return;
   }
 
   fileMeta.textContent = `${file.name} (${formatBytes(file.size)})`;
+  updateSessionSignals();
 }
 
 function formatBytes(bytes) {
@@ -278,6 +291,7 @@ async function onSubmit(event) {
     updateOutputMeta();
     updateStats();
     updateOutputActions();
+    updateSessionSignals();
     setStatus("Transcript ready.", "ok");
   } catch (error) {
     if (error.name === "AbortError") {
@@ -318,6 +332,7 @@ function clearTranscript() {
   updateOutputMeta();
   updateStats();
   updateOutputActions();
+  updateSessionSignals();
   setStatus("Transcript cleared.", "ok");
 }
 
@@ -368,6 +383,7 @@ function setBusyState(isBusy) {
   sourceModeInputs.forEach((input) => {
     input.disabled = isBusy;
   });
+  updateSessionSignals();
 }
 
 function updateOutputMeta() {
@@ -448,4 +464,42 @@ function setShowcaseSlide(index) {
     dot.classList.toggle("is-active", dotIndex === index);
     dot.setAttribute("aria-current", dotIndex === index ? "true" : "false");
   });
+}
+
+function updateSessionSignals() {
+  const provider = providerInput.value === "openai" ? "OpenAI" : "ElevenLabs";
+  const sourceMode = getSourceMode();
+  const source = sourceMode === "youtube" ? "YouTube URL" : "File Upload";
+  const hasKey = apiKeyInput.value.trim().length > 0;
+  const hasSource = sourceMode === "youtube" ? youtubeUrlInput.value.trim().length > 0 : Boolean(mediaInput.files?.[0]);
+  const hasOutput = transcriptInput.value.trim().length > 0;
+
+  if (providerBadge) {
+    providerBadge.textContent = provider;
+  }
+  if (sourceBadge) {
+    sourceBadge.textContent = source;
+  }
+
+  if (readinessBadge) {
+    if (inFlightController) {
+      readinessBadge.textContent = "Processing";
+    } else if (!hasKey) {
+      readinessBadge.textContent = "Awaiting API key";
+    } else if (!hasSource) {
+      readinessBadge.textContent = "Awaiting source";
+    } else {
+      readinessBadge.textContent = "Ready to transcribe";
+    }
+  }
+
+  if (stepKey) {
+    stepKey.classList.toggle("is-done", hasKey);
+  }
+  if (stepSource) {
+    stepSource.classList.toggle("is-done", hasSource);
+  }
+  if (stepOutput) {
+    stepOutput.classList.toggle("is-done", hasOutput);
+  }
 }
